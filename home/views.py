@@ -1,3 +1,4 @@
+from re import template
 from django.shortcuts import redirect, render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -19,11 +20,12 @@ env = environ.Env()
 environ.Env.read_env()
  
 # Create your views here.
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def home(request):
     i = Book.objects.all().order_by('-date_added')[:1]
     the_books = BookSerializer(i, many=True)
-    return Response(the_books.data)
+    template_name = "payment.html"
+    return render({'data' : the_books.data}, template_name)
 
 @api_view(['GET'])
 def books(request):
