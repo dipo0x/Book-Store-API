@@ -31,4 +31,4 @@ Firstly, startup your ngrok server. If you dont't know how to do so, head over [
 
 After that, insert the link into your `ALLOWED_HOST` in your settings.py file and your orders app views.py redirect_url above the flutterwave endpoint for your charges transaction. Also go back to your flutterwave dashboard and copy your test api secret key and put it in your orders app .env file.
 
-Order a book with https://b271-102-89-0-58.ngrok.io/order-book/12346.
+Order a book with https://b271-102-89-0-58.ngrok.io/order-book/(book-slug) and pay with a dummy card
