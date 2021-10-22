@@ -2,7 +2,7 @@
 This an API which has been put in place just to make you order for books, upload books with price, image and all, pay and automtically download books
 
 # Installation
-To install required packages, all you need to do is quite simple as long as you have [pip](https://pypi.org/project/pip/). There's a requirement.txt file in the root directory so run ```
+To install required packages, all you need to do is quite simple as long as you have [pip](https://pypi.org/project/pip/). There's a requirements.txt file in the root directory so run ```
 pip install -r requirements.txt``` to have them installed. Ive filtered some packages you won't need but couldn't help it all
 
 # Usage
