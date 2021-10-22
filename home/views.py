@@ -108,7 +108,7 @@ def order_book(request, slug):
     amount = book.price
     title= book.name
 
-    #Saving the booking the folk is paying for
+    #Saving the book the folk is paying for
     s = BookSlug.objects.get(user=request.user)
     s.delete()
     iew = BookSlug.objects.create(
