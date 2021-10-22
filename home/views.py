@@ -177,5 +177,5 @@ def webhook(request):
         return response
     return HttpResponse("")
     #Why I used two methods is that the endpoint redirect views the redirect page twice and drops the webhook only the first time
-    #so we have to retrive the webhook slug the first time so that we can use it when it comes 
+    #so we have to create a post medthhod which will trigger the get response. This wont work if a webhook is not sent so as
     #to give response the second time
