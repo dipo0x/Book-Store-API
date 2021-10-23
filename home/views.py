@@ -53,7 +53,7 @@ def add_book(request):
                 "Book with that name already exist"
                 }
                 return Response(response)
-            save = Book.objects.get_or_create(user=request.user, name=name, price=price, text=text, slug=" '' "+ slug, slug2 = slug, image=image)
+            save = Book.objects.get_or_create(user=request.user, name=name, price=price, text=text, slug=" '' "+ slug, image=image)
             return redirect("book-details"+"/"+slug)     
         else:
             response = {
