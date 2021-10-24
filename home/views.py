@@ -14,18 +14,21 @@ from fpdf import FPDF
 import requests, mimetypes
 from django.http.response import HttpResponse
 from pathlib import Path
+import json
 
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
  
 # Create your views here.
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 def home(request):
-    i = Book.objects.all().order_by('-date_added')[:1]
+    i = Book.objects.all()
     the_books = BookSerializer(i, many=True)
-    template_name = "payment.html"
-    return render({'data' : the_books.data}, template_name)
+    return Response(the_books.data)
+
+def homepage(request):
+    return render(request, 'home.html')
 
 @api_view(['GET'])
 def books(request):
@@ -53,7 +56,7 @@ def add_book(request):
                 "Book with that name already exist"
                 }
                 return Response(response)
-            save = Book.objects.get_or_create(user=request.user, name=name, price=price, text=text, slug=" '' "+ slug, slug2 = slug, image=image)
+            save = Book.objects.get_or_create(user=request.user, name=name, price=price, text=text, slug=slug, image=image)
             return redirect("book-details"+"/"+slug)     
         else:
             response = {
