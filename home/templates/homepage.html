@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href=
+"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity=
+"sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<title>
+		Book Store App
+	</title>
+<script>
+        $(document).ready(function()
+        {
+            $.ajax({
+                url: "http://localhost:8000/home",
+                dataType: "JSON",
+                success:function(data){
+                    for(var i=0;i<data.length;i++)
+                {
+                    var row = $('<tr><td>'+data[i].name+`</td><td>`+data[i].text+`</td><td>`+data[i].price+`</td><td>`+data[i].image);
+                    $("#Mytable").append(row);
+                    }
+                }
+            }
+        )
+      }
+    )
+</script>
+</head>
+<body>
+    <table id="Mytable" border="1">
+        <tr>
+            <th> Book Name</th>
+            <th> Price</th>
+            <th> Text</th>
+        </tr>
+    </table>
+	</div>
+</body>
+</html>

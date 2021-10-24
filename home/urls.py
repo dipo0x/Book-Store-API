@@ -10,5 +10,5 @@ urlpatterns = [
     path('edit-book/<slug>', views.edit_book),
     path('delete-book/<slug>', views.delete_book),
     path('order-book/<slug>', views.order_book),
-    path('webhook', views.webhook, name='webhook')
+    path('webhook', views.webhook, name='webhook'),
 ]

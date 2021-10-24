@@ -28,7 +28,7 @@ def home(request):
     return Response(the_books.data)
 
 def homepage(request):
-    return render(request, 'home.html')
+    return render(request, 'homepage.html')
 
 @api_view(['GET'])
 def books(request):
