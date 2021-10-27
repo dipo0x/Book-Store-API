@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Book
-from accounts.models import Profile
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,4 +9,9 @@ class BookSerializer(serializers.ModelSerializer):
 class BookUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ["price", "text"]
+        fields = ["name", "price", "text"]
+
+class BookImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ["image"]

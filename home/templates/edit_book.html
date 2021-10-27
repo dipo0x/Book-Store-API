@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+crossorigin="anonymous" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    (function($){
+      $('form').submit(function(event){
+          event.preventDefault();
+          var data = new FormData(this);
+          var action = function(d){
+            console.log(data);
+      };
+          $.ajax({
+              url:"/edit-book/" + String,
+              data: data,
+              type:"POST",
+              contentType: false,
+              processData: false,
+              success: action,
+              error: action
+          });
+     });
+    }(jQuery));
+</script>
+	<title>
+		Book Store App
+	</title>
+</head>
+<body> 
+
+    <form action="" style="padding-left: 30px; padding-top: 50px;" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <p>{{ message }}</p>
+        
+        <input type="text" name="name" placeholder="Name of the book" />
+
+        <P style="padding-top: 50PX;">
+            <input type="text" name="text" placeholder=" Book Text" />
+        </P>
+
+        <P style="padding-top: 50PX;">
+            <input type="number" name="price" placeholder="Price of book" />
+        </P>
+
+       <P style="padding-top: 50PX;">
+           <input type="file" name="image" />
+        </P>
+
+        <P style="padding-top: 50PX; padding-left: 30px;">
+            <button type="submit" style="font-size: 15px; max-width: 200px;" class=" btn btn-block mybtn btn-primary tx-tfm">Edit</button>
+        </P>
+
+    </form>
+</body>
+</html>
+
+
+

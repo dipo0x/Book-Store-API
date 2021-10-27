@@ -20,7 +20,7 @@
                 success:function(data){
                     for(var i=0;i<data.length;i++)
                 {
-                    var row = $('<tr><td>'+data[i].name+`</td><td>`+data[i].text+`</td><td>`+data[i].price+`</td><td>`+data[i].image);
+                    var row = $('<tr><td>'+data[i].name+`</td><td>`+data[i].text+`</td><td>`+data[i].price+`</td><td>`+data[i].file);
                     $("#Mytable").append(row);
                     }
                 }
@@ -32,7 +32,10 @@
 </head>
 <body>
     <table id="Mytable" border="1">
-        <tr>
+        {% for data in data %}
+        {{ data }}
+        
+        {% endfor %}<tr>
             <th> Book Name</th>
             <th> Price</th>
             <th> Text</th>
@@ -41,3 +44,5 @@
 	</div>
 </body>
 </html>
+
+

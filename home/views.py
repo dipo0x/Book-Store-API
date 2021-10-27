@@ -1,8 +1,7 @@
-from re import template
 from django.shortcuts import redirect, render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import BookSerializer, BookUpdateSerializer
+from .serializers import BookSerializer, BookUpdateSerializer, BookImageSerializer
 from .models import Book, BookSlug
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
@@ -14,7 +13,7 @@ from fpdf import FPDF
 import requests, mimetypes
 from django.http.response import HttpResponse
 from pathlib import Path
-import json
+import os
 
 # Initialise environment variables
 env = environ.Env()
@@ -75,26 +74,29 @@ def book_details(request, slug):
     the_books = BookSerializer(book_name)
     return Response(the_books.data)
 
-@api_view(['GET', 'PATCH'])
+@login_required
 def edit_book(request, slug):
-    if request.method == "PATCH":
-            if request.user == Book.objects.get(Q(slug=slug)).user:
-                book = Book.objects.get(Q(user = request.user.id, slug=slug))
-                the_books = BookUpdateSerializer(book, data=request.data)
-                if the_books.is_valid():
-                    the_books.save()
-                    return Response(the_books.data)
-            else:
-                return redirect("/profile")
-    else:
-        if request.user.is_authenticated:
-            if request.user == Book.objects.get(Q(slug=slug)).user:
-                book = Book.objects.get(Q(user = request.user.id, slug=slug))
-                the_books = BookUpdateSerializer(book)
-                return Response(the_books.data)
+    if request.method == "POST":
+        if request.user == Book.objects.get(Q(slug=slug)).user:
+            book = Book.objects.get(Q(slug=slug))
+            form = BookUpdateSerializer(book, data=request.POST)
+            form2 = BookImageSerializer(book, data=request.FILES)
+
+            if len(form.initial_data["name"]) != 0:        
+                book_name = Book.objects.filter(Q(name=form.initial_data["name"]))
+                if book_name.exists():
+                    return render(request, 'edit_book.html', {"message" : "Book with that name already exist"})
+            if form.is_valid():
+                form.save()
+            if form2.is_valid():
+                book.image.delete()
+                form2.save()
+                return HttpResponse("Image Saved")
+            return HttpResponse("Edit Saved")
+        else:
             return redirect("/profile")
-        return Response("Log in to make an attempt to edit this post")
-        
+    return render(request, 'edit_book.html')
+
 @api_view(['GET'])
 @login_required
 def delete_book(request, slug):
